@@ -106,7 +106,7 @@ def about():
     top = Toplevel()
     top.title("About")
     top.geometry('300x150')
-    msg = Message(top, text="«Robot Vasily server» v1.0 Beta by @badfedor, 2018. \n\n Use keys W, A, D, X \n to move forward, left, right, backward \n and key S to stop. \n\n Don't forget to check you're using english keymap! ", width=300)
+    msg = Message(top, text="«Robot Vasily server» v1.1 Alpha (Non-stable!) by @badfedor, 2018. \n\n Use keys W, A, D, X \n to move forward, left, right, backward \n and key S to stop. \n\n Don't forget to check you're using english keymap! ", width=300)
     msg.pack()
 
 def combine_funcs(*funcs):
