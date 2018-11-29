@@ -1,0 +1,14 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Robot{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<div class="container">
+    <br>
+    <h1>Oops, something gone wrong =(</h1>
+    <h6>500 Internal Server Error</h6>
+    <img width="80%" src="{{url_for('static', filename='500.jpg')}}" />
+</div>
+{% endblock %}

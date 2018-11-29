@@ -1,0 +1,95 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Robot{% endblock %}
+
+{% block content %}
+	<head>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	</head>
+    <div class="container">
+		<br>
+        <h1>Robot control</h1>
+		<br><br>
+		<div class="row">
+			<div class="col-sm-6">
+				<table>
+					<tr>
+						<th></th><th>
+							<button class='btn btn-light' onclick='$.ajax({ url: "/control?token={{token['token']}}&move=f", context: document.body	}).done(function() { $( this ).addClass( "done" );});'>↑</button>
+						</th><th></th>
+					</tr>
+					<tr>
+						<th>
+							<button class='btn btn-light' onclick='$.ajax({ url: "/control?token={{token['token']}}&move=l", context: document.body	}).done(function() { $( this ).addClass( "done" );});'>←</button>
+						</th>
+						<th>
+							<button class='btn btn-danger' onclick='$.ajax({ url: "/control?token={{token['token']}}&move=s", context: document.body	}).done(function() { $( this ).addClass( "done" );});'>STOP</button>
+						</th>
+						<th>
+							<button class='btn btn-light' onclick='$.ajax({ url: "/control?token={{token['token']}}&move=r", context: document.body	}).done(function() { $( this ).addClass( "done" );});'>→</button><br>
+						</th>
+					</tr>
+					<tr>
+						<th></th><th>
+							<button class='btn btn-light' onclick='$.ajax({ url: "/control?token={{token['token']}}&move=b", context: document.body	}).done(function() { $( this ).addClass( "done" );});'>↓</button><br>
+						</th><th></th>
+					</tr>
+				</table>
+			</div>
+			<div class="col-sm-6 offset-xs-1">
+				<table>
+				<tr><th>
+					<button id="btn_lights" style="font-size: 1em; max-height: 50px" class='btn btn-light' onclick="lightsToggle();">LIGHTS</button>
+				</th><th>
+					<button style="font-size: 1em; max-height: 50px" class='btn btn-danger'>HORN</button>
+				</th><th>
+					<button style="font-size: 1em; max-height: 50px" class='btn btn-light'>BEEP</button>
+				</th>
+				</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var state = false;
+		function lightsToggle() {
+			if(state==false){
+				//ajax
+				$("#btn_lights").removeClass('btn btn-light').addClass('btn btn-warning');
+				state = true;
+				console.log('changed 1');
+			}
+			else if(state==true){
+				//ajax
+				$("#btn_lights").removeClass('btn btn-warning').addClass('btn btn-light');
+				state = false;
+				console.log('changed 0');
+			}
+		}
+	</script>
+    <style>
+		body {
+			background-color: #f9f9f9; 
+		}
+		.container {
+			background-color: #fff;
+			margin-top: 10pt;
+			padding-bottom: 10%;
+			border-radius: 1em;
+		}
+		.btn {
+			width: 100%;
+			height: 100%;
+			font-size: 3em;
+			font-weight: bold;
+			border-color: #000;
+		}
+		th {
+			width: 30%;
+			height: 100px;
+		}
+		table {
+			width: 100%;
+			max-width: 400px;
+		}
+    </style>
+{% endblock %}

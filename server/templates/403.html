@@ -1,0 +1,14 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Robot{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<div class="container">
+    <br>
+    <h1>Access forbidden!</h1>
+    <h6>403 Forbidden</h6>
+    <img width="80%" src="{{url_for('static', filename='403.jpg')}}" />
+</div>
+{% endblock %}
