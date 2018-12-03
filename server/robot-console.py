@@ -43,17 +43,17 @@ def index():
         return render_template("index.html", token=token)
     return make_response('403 Forbidden', 401, {'WWW-Authenticate' : 'Basic realm="Login Required!"'})
 
-def com_connect():
-    try:
-        global ser, args
-        ser = serial.Serial(args.serial_port, args.serial_freq)
-        time.sleep(3)
-        print('Successfully connected to <{0}> !'.format(com.get()))
-    except Exception:
-        print('Error: Could not connect to <{0}> !'.format(com.get()))
+##def com_connect():
+try:
+    ##global ser, args
+    ser = serial.Serial(args.serial_port, args.serial_freq)
+    time.sleep(3)
+    print('-- Successfully connected to <{0}> ! --\n'.format(args.serial_port))
+except Exception:
+    print('-- Error: Could not connect to <{0}> ! --\n'.format(args.serial_port))
 
 def no_conn_exeption():
-    print('Error: No device connected!')
+    print('-- Error: No device connected!')
     
 def stop(event):
     try:
@@ -64,28 +64,28 @@ def stop(event):
 def move_left(event):
     try:
         ser.write(b'l')
-        print("Moving Left!")
+        print("-- Moving Left!")
     except:
         no_conn_exeption()
 
 def move_right(event):
     try:
         ser.write(b'r')
-        print("Moving Right!")
+        print("-- Moving Right!")
     except:
         no_conn_exeption()
 
 def move_forward(event):
     try:
         ser.write(b'f')
-        print("Moving Forward!")
+        print("-- Moving Forward!")
     except:
         no_conn_exeption()
 
 def move_backward(event):
     try:
         ser.write(b'b')
-        print("Moving Backward!")
+        print("-- Moving Backward!")
     except:
         no_conn_exeption()
 		
@@ -100,47 +100,66 @@ def moving():
     global real_token
     token = request.args.get('token')
     move = request.args.get('move')
+    lights = request.args.get('lights')
     if(token == real_token):
+        ## MOVE
         if(move == 'l'):
             try:
                 ser.write(b'l')
-                print('Moving left') 
+                print('-- Moving left') 
                 data = {'move' : 'left'}
             except:        
-                print('Cannot move! Please check connection.')    
+                print('-- Cannot move! Please check connection.')    
                 data = {'error' : '2'}
         elif(move == 'r'):
             try:
                 ser.write(b'r')
-                print('Moving right') 
+                print('-- Moving right') 
                 data = {'move' : 'right'}
             except:        
-                print('Cannot move! Please check connection.')    
+                print('-- Cannot move! Please check connection.')    
                 data = {'error' : '2'} 
         elif(move == 'f'):
             try:
                 ser.write(b'f')
-                print('Moving forward') 
+                print('-- Moving forward') 
                 data = {'move' : 'forward'}
             except:        
-                print('Cannot move! Please check connection.')    
+                print('-- Cannot move! Please check connection.')    
                 data = {'error' : '2'}
         elif(move == 'b'):
             try:
                 ser.write(b'b')
-                print('We`re going backwards, ignoring the realities...') 
+                print('-- We`re going backwards, ignoring the realities...') 
                 data = {'move' : 'back'}
             except:        
-                print('Cannot move! Please check connection.')    
+                print('-- Cannot move! Please check connection.')    
                 data = {'error' : '2'}
         elif(move == 's'):
             try:
                 ser.write(b's')
-                print('Stopping') 
+                print('-- Stopping') 
                 data = {'move' : 'left'}
             except:        
-                print('Cannot move! Please check connection.')    
+                print('-- Cannot move! Please check connection.')    
                 data = {'error' : '2'}  
+        ## LIGHTS
+        elif(lights == '1'):
+            try:
+                ser.write(b'e')
+                print('-- Lights: ON') 
+                data = {'lights' : '1'}
+            except:        
+                print('-- Cannot toggle lights! Please check connection.')    
+                data = {'error' : '2'}  
+        elif(lights == '0'):
+            try:
+                ser.write(b'r')
+                print('-- Lights: OFF') 
+                data = {'lights' : '0'}
+            except:        
+                print('-- Cannot toggle lights! Please check connection.')    
+                data = {'error' : '2'} 
         else:
             data = {'error' : '1'}
     else:

@@ -56,13 +56,13 @@
 				//ajax
 				$("#btn_lights").removeClass('btn btn-light').addClass('btn btn-warning');
 				state = true;
-				console.log('changed 1');
+				$.ajax({ url: "/control?token={{token['token']}}&lights=1", context: document.body	}).done(function() { $( this ).addClass( "done" );});
 			}
 			else if(state==true){
 				//ajax
 				$("#btn_lights").removeClass('btn btn-warning').addClass('btn btn-light');
 				state = false;
-				console.log('changed 0');
+				$.ajax({ url: "/control?token={{token['token']}}&lights=0", context: document.body	}).done(function() { $( this ).addClass( "done" );});
 			}
 		}
 	</script>
