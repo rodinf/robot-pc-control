@@ -1,4 +1,4 @@
-import serial, string, time, os, random, hashlib, logging
+import serial, string, time, os, random, hashlib, logging, argparse
 from flask import *
 from flask_bootstrap import Bootstrap
 
@@ -8,6 +8,11 @@ app = Flask(__name__)
 Bootstrap(app)
 
 app.config['BOOTSTRAP_SERVE_LOCAL'] = True
+
+parser = argparse.ArgumentParser()
+parser.add_argument("serial_port", help="serial port address where robot is connected to", type=str)
+parser.add_argument("serial_freq", help="serial port frequency", type=str)
+args = parser.parse_args()
 
 def token_generate(length):
     letters = string.ascii_lowercase+string.digits
@@ -40,8 +45,8 @@ def index():
 
 def com_connect():
     try:
-        global ser
-        ser = serial.Serial(com.get(), var.get())
+        global ser, args
+        ser = serial.Serial(args.serial_port, args.serial_freq)
         time.sleep(3)
         print('Successfully connected to <{0}> !'.format(com.get()))
     except Exception:
