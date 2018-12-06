@@ -1,7 +1,7 @@
-#define r1 8
-#define r2 9
-#define r3 10
-#define r4 11
+#define r1 5
+#define r2 6
+#define r3 7
+#define r4 8
 
 
 void setup() {
@@ -33,16 +33,16 @@ void loop() {
       }
       case 'f':{ 
     digitalWrite(r1,1);
-    digitalWrite(r2,1);
-    digitalWrite(r3,0);
+    digitalWrite(r2,0);
+    digitalWrite(r3,1);
     digitalWrite(r4,0);
         
       break;
       }
       case 'b':{
     digitalWrite(r1,0);
-    digitalWrite(r2,0);
-    digitalWrite(r3,1);
+    digitalWrite(r2,1);
+    digitalWrite(r3,0);
     digitalWrite(r4,1);
 
         break;
